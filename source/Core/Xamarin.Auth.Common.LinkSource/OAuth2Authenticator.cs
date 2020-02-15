@@ -851,7 +851,7 @@ namespace Xamarin.Auth._MobileServices
                 { "grant_type", "authorization_code" },
                 { "code", code },
                 { "redirect_uri", redirectUrl.AbsoluteUri },
-                { "client_id", clientId },
+                { "client_id", clientId }
             };
             if (!string.IsNullOrEmpty(clientSecret))
             {
@@ -890,7 +890,7 @@ namespace Xamarin.Auth._MobileServices
             ///		https://github.com/xamarin/Xamarin.Auth/pull/91
             ///		
             //else if (data.ContainsKey("access_token"))
-            else if (data.ContainsKey(AccessTokenName))
+            else if (data.ContainsKey(AccessTokenName) || data.ContainsKey("access_token"))
             //---------------------------------------------------------------------------------------
             #endregion
             {
