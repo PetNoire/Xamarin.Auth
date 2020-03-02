@@ -5,6 +5,7 @@ using AuthenticateUIType =
             //System.Object
             ;
 using System.Text;
+using UIKit;
 
 namespace Xamarin.Auth
 {
@@ -75,16 +76,29 @@ namespace Xamarin.Auth
                                 (
                                     () =>
                                     {
-                                        UIKit.UIAlertView alert = null;
-                                        alert = new UIKit.UIAlertView
-                                                        (
-                                                            "WARNING", 
-                                                            v, 
-                                                            null, 
-                                                            "Ok", 
-                                                            null
-                                                        );
-                        				alert.Show();                                        
+                            //            UIKit.UIAlertView alert = null;
+                            //            alert = new UIKit.UIAlertView
+                            //                            (
+                            //                                "WARNING", 
+                            //                                v, 
+                            //                                null, 
+                            //                                "Ok", 
+                            //                                null
+                            //                            );
+                        				//alert.Show();
+                                        var newAlert = new UIAlertController()
+                                        {
+                                            Title = "WARNING",
+                                            Message = v,
+                                        };
+                                        newAlert.AddAction(
+                                            UIAlertAction.Create(
+                                                "OK",
+                                                UIAlertActionStyle.Default,
+                                                null
+                                                ));
+
+                                        newAlert.PresentViewController(newAlert, animated: true, completionHandler: null);
                                     }
                                 );
             return;

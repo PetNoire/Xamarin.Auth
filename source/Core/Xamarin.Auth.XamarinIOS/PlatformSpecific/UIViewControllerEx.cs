@@ -39,24 +39,36 @@ namespace Xamarin.Utilities._MobileServices.iOS
         public static void ShowError(this UIViewController controller, string title, string message, Action continuation = null)
         {
             var mainBundle = NSBundle.MainBundle;
+            //var alert = new UIAlertView
+            //                (
+            //                    mainBundle.LocalizedString(title, "Error message title"),
+            //                    mainBundle.LocalizedString(message, "Error"),
+            //                    null,
+            //                    mainBundle.LocalizedString("OK", "Dismiss button title for error message")
+            //                );
+            //if (continuation != null)
+            //{
+            //    alert.Dismissed += delegate
+            //    {
+            //        continuation();
+            //    };
+            //}
 
-            var alert = new UIAlertView
-                            (
-                                mainBundle.LocalizedString(title, "Error message title"),
-                                mainBundle.LocalizedString(message, "Error"),
-                                null,
-                                mainBundle.LocalizedString("OK", "Dismiss button title for error message")
-                            );
-
-            if (continuation != null)
+            //alert.Show();
+            var newAlert = new UIAlertController()
             {
-                alert.Dismissed += delegate
-                {
-                    continuation();
-                };
-            }
+                Title = mainBundle.GetLocalizedString(title),
+                Message = mainBundle.GetLocalizedString(message),
+            };
+            newAlert.AddAction(
+                UIAlertAction.Create(
+                    mainBundle.GetLocalizedString("OK"),
+                    UIAlertActionStyle.Default,
+                    action => continuation()
+                    ));
+            controller.PresentViewController(newAlert, true, null);
 
-            alert.Show();
+
         }
     }
 }

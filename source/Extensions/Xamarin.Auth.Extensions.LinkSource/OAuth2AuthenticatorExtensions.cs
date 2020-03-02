@@ -24,7 +24,7 @@ namespace Xamarin.Auth
         #if XAMARIN_AUTH_INTERNAL
         internal static Task<int> RequestRefreshTokenAsync(this OAuth2Authenticator authenticator, string refreshToken)
         #else
-        public static Task<int> RequestRefreshTokenAsync(this OAuth2Authenticator authenticator, string refreshToken)
+        public static Task<IDictionary<string,string>> RequestRefreshTokenAsync(this OAuth2Authenticator authenticator, string refreshToken)
         #endif
 
         {
@@ -49,13 +49,23 @@ namespace Xamarin.Auth
 
                                 authenticator.OnRetrievedAccountProperties(accountProperties);
 
-                                return int.Parse(accountProperties["expires_in"]);
+                                return accountProperties;
                             }
                         );
         }
         //---------------------------------------------------------------------------------------
         #endregion
+        
+    }
+    public class OAuth2RefreshRequest : OAuth2Request
+    {
+        public OAuth2RefreshRequest(OAuth2Authenticator authenticator, string method, Uri uri, IDictionary<string, string> parameters, ref Account account) : base(method, uri, parameters, account)
+        {
+            var acc = account;
+            var task = Task.Run(async () => await authenticator.RequestRefreshTokenAsync(acc.Properties["refresh_token"]));
 
+            base.Account = account = new Account("", task.Result);
+        }
     }
 }
 
