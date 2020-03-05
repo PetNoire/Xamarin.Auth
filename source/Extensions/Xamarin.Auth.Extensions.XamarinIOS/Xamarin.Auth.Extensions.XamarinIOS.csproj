@@ -84,12 +84,6 @@
     <None Include="packages.config" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Core\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj">
-      <Project>{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}</Project>
-      <Name>Xamarin.Auth.XamarinIOS</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
     <!--
   <Import Project="..\..\packages\Microsoft.DotNet.BuildTools.GenAPI.1.0.0-beta-00081\build\Microsoft.DotNet.BuildTools.GenAPI.targets" Condition="Exists('..\..\packages\Microsoft.DotNet.BuildTools.GenAPI.1.0.0-beta-00081\build\Microsoft.DotNet.BuildTools.GenAPI.targets')" />
