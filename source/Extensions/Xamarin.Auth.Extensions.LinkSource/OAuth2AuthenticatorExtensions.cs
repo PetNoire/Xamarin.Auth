@@ -63,8 +63,12 @@ namespace Xamarin.Auth
         {
             var acc = account;
             var task = Task.Run(async () => await authenticator.RequestRefreshTokenAsync(acc.Properties["refresh_token"]));
-
-            base.Account = account = new Account("", task.Result);
+            acc = new Account("", task.Result);
+            if (!acc.Properties.ContainsKey("refresh_token"))
+            {
+                acc.Properties.Add("refresh_token", account.Properties["refresh_token"]);
+            }
+            base.Account = account = acc;
         }
     }
 }
